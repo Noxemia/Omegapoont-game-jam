@@ -24,6 +24,7 @@ color = Color(0.84313726, 0.8235294, 0.79607844, 1)
 
 [node name="BigBall" parent="." instance=ExtResource("1_uwrxv")]
 position = Vector2(650, 450)
+linear_damp_mode = 1
 initial_velocity = Vector2(200, 200)
 
 [node name="SmallBall" parent="." instance=ExtResource("2_yqjtg")]
