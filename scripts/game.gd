@@ -26,13 +26,12 @@ func _spawn_big_ball() -> void:
 	add_child(big_ball_instance)
 	
 	big_ball_instance.global_position = Vector2(600, 400)
-	#big_ball_instance.get_node("Sprite2D").modulate.a = 0.5
 	big_ball_timer.start()
 
 func _on_big_ball_timer_timeout() -> void:
-	big_ball_instance.linear_velocity = Vector2(200, 200) * directions.pick_random()
+	big_ball_instance.linear_velocity = big_ball_instance.initial_velocity * directions.pick_random()
 	while big_ball_instance.linear_velocity == small_ball_instance.linear_velocity:
-		big_ball_instance.linear_velocity = Vector2(200, 200) * directions.pick_random()
+		big_ball_instance.linear_velocity = big_ball_instance.initial_velocity * directions.pick_random()
 	
 func _spawn_small_ball() -> void:
 	small_ball_instance = small_ball_scene.instantiate()
@@ -43,6 +42,6 @@ func _spawn_small_ball() -> void:
 	small_ball_timer.start()
 
 func _on_small_ball_timer_timeout() -> void:
-	small_ball_instance.linear_velocity = Vector2(200, 200) * directions.pick_random()
+	small_ball_instance.linear_velocity = small_ball_instance.initial_velocity * directions.pick_random()
 	while big_ball_instance.linear_velocity == small_ball_instance.linear_velocity:
-		small_ball_instance.linear_velocity = Vector2(200, 200) * directions.pick_random()
+		small_ball_instance.linear_velocity = small_ball_instance.initial_velocity * directions.pick_random()

@@ -3,7 +3,7 @@ extends RigidBody2D
 @onready var color_rect = $ColorRect
 @onready var collision_shape = $CollisionShape2D
 
-const paddle_speed = 300
+const paddle_speed = 500
 
 func _ready() -> void:
 	var color_size = color_rect.size * color_rect.scale
