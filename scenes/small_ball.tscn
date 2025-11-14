@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctm8cht8uldso"]
+
+[ext_resource type="Texture2D" uid="uid://bimsa774vt7kj" path="res://images/small_ball.png" id="1_0bawb"]
+[ext_resource type="Script" uid="uid://cf2qebvugmjab" path="res://scripts/small_ball.gd" id="1_ogcwb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ogcwb"]
+radius = 24.0
+height = 54.0
+
+[node name="SmallBall" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_ogcwb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_0bawb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_ogcwb")
