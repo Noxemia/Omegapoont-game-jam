@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://ud83ejkwrm6a"]
+[gd_scene load_steps=6 format=3 uid="uid://ud83ejkwrm6a"]
 
-[ext_resource type="PackedScene" uid="uid://bwd232xsdwti7" path="res://scenes/big_ball.tscn" id="1_uwrxv"]
-[ext_resource type="PackedScene" uid="uid://ctm8cht8uldso" path="res://scenes/small_ball.tscn" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://der0n06marfqp" path="res://scripts/game.gd" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://by7nk1bw7kd47" path="res://scenes/left_paddle.tscn" id="3_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://bdq1bg7hc2q6m" path="res://scenes/right_paddle.tscn" id="4_lbhrr"]
 
@@ -10,6 +9,7 @@
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_yqjtg"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_lnu2h")
 
 [node name="Background" type="CanvasLayer" parent="."]
 layer = -1
@@ -21,15 +21,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.84313726, 0.8235294, 0.79607844, 1)
-
-[node name="BigBall" parent="." instance=ExtResource("1_uwrxv")]
-position = Vector2(650, 450)
-linear_damp_mode = 1
-initial_velocity = Vector2(200, 200)
-
-[node name="SmallBall" parent="." instance=ExtResource("2_yqjtg")]
-position = Vector2(800, 600)
-initial_velocity = Vector2(-200, -200)
 
 [node name="Floor" type="StaticBody2D" parent="."]
 
@@ -50,3 +41,12 @@ gravity_scale = 0.0
 [node name="RightPaddle" parent="." instance=ExtResource("4_lbhrr")]
 position = Vector2(1270, 400)
 gravity_scale = 0.0
+
+[node name="BigBallTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SmallBallTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="BigBallTimer" to="." method="_on_big_ball_timer_timeout"]
+[connection signal="timeout" from="SmallBallTimer" to="." method="_on_small_ball_timer_timeout"]
