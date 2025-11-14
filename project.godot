@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="OPong"
+run/main_scene="uid://ud83ejkwrm6a"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1300
+window/size/viewport_height=900
 
 [rendering]
 
