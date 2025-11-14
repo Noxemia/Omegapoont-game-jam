@@ -6,6 +6,7 @@
 size = Vector2(38.5, 182.5)
 
 [node name="LeftPaddle" type="RigidBody2D"]
+mass = 100000.0
 script = ExtResource("1_6q4ch")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

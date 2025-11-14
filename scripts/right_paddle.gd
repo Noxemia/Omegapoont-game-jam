@@ -15,4 +15,3 @@ func _physics_process(delta: float) -> void:
 		global_position.y -= paddle_speed * delta
 	if Input.is_action_pressed("RightPaddleDown"):
 		global_position.y += paddle_speed * delta
-	

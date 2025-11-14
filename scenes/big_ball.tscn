@@ -1,13 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwd232xsdwti7"]
+[gd_scene load_steps=5 format=3 uid="uid://bwd232xsdwti7"]
 
 [ext_resource type="Script" uid="uid://b3jfqcxnbdupb" path="res://scripts/big_ball.gd" id="1_ggth0"]
 [ext_resource type="Texture2D" uid="uid://ctx7wxunmkgn5" path="res://images/big_ball.png" id="1_gvqly"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ggth0"]
+friction = 0.0
+bounce = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gvqly"]
 radius = 55.0
 height = 126.0
 
 [node name="BigBall" type="RigidBody2D"]
+mass = 5.0
+physics_material_override = SubResource("PhysicsMaterial_ggth0")
 gravity_scale = 0.0
 script = ExtResource("1_ggth0")
 

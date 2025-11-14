@@ -1,13 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctm8cht8uldso"]
+[gd_scene load_steps=5 format=3 uid="uid://ctm8cht8uldso"]
 
 [ext_resource type="Texture2D" uid="uid://bimsa774vt7kj" path="res://images/small_ball.png" id="1_0bawb"]
 [ext_resource type="Script" uid="uid://cf2qebvugmjab" path="res://scripts/small_ball.gd" id="1_ogcwb"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ogcwb"]
+friction = 0.0
+bounce = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ogcwb"]
 radius = 24.0
 height = 54.0
 
 [node name="SmallBall" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_ogcwb")
 gravity_scale = 0.0
 script = ExtResource("1_ogcwb")
 
