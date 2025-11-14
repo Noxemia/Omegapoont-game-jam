@@ -4,12 +4,17 @@ const PORT = Constants.PORT
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_create_server()
+	var argsSystem = OS.get_cmdline_args()
+	print(argsSystem[2])
+	var isServer = argsSystem[2] == "isServer"
+	if (!isServer):
+		return
 	multiplayer.peer_connected.connect(_on_player_connected)
 	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	multiplayer.connected_to_server.connect(_on_connected_ok)
 	multiplayer.connection_failed.connect(_on_connected_fail)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	_create_server()
 
 
 func _on_player_connected(id):
@@ -23,6 +28,9 @@ func _on_connected_ok():
 	
 func _on_connected_fail():
 	print("connected fail")
+	var last_error = multiplayer.is_server()
+	print("Peer last error:", last_error)
+	multiplayer.multiplayer_peer = null
 	
 func _on_server_disconnected():
 	print("Server disconnect")

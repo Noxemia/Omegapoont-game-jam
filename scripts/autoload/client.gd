@@ -5,10 +5,16 @@ const PORT = Constants.PORT
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	var argsSystem = OS.get_cmdline_args()
+	print(argsSystem[2])
+	var isClient = argsSystem[2] == "isClient"
+	if (!isClient):
+		return
 	join_game("")
 
 
 func join_game(address = ""):
+	await get_tree().create_timer(2.0).timeout
 	if address.is_empty():
 		address = DEFAULT_SERVER_IP
 	multiplayer.multiplayer_peer = null
@@ -22,6 +28,7 @@ func join_game(address = ""):
 	else:
 		error = peer.create_client("ws://" + address + ":" + str(PORT))
 		print("Created client on:" + address)
+		print(error)
 	if error:
 		return error
 	multiplayer.multiplayer_peer = peer
