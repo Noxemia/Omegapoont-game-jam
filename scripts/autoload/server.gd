@@ -1,0 +1,44 @@
+extends Node
+const PORT = Constants.PORT
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	_create_server()
+	multiplayer.peer_connected.connect(_on_player_connected)
+	multiplayer.peer_disconnected.connect(_on_player_disconnected)
+	multiplayer.connected_to_server.connect(_on_connected_ok)
+	multiplayer.connection_failed.connect(_on_connected_fail)
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
+
+
+func _on_player_connected(id):
+	print("player connected with id "+str(id)+" to "+str(multiplayer.get_unique_id()))
+
+func _on_player_disconnected():
+	print("player disconnect")
+	
+func _on_connected_ok():
+	print("Connected ok")
+	
+func _on_connected_fail():
+	print("connected fail")
+	
+func _on_server_disconnected():
+	print("Server disconnect")
+
+func _create_server():
+	var peer = WebSocketMultiplayerPeer.new()
+	var error
+	#if Constants.USE_SSL:
+		#var priv := load(Constants.PRIVATE_KEY_PATH)
+		#var cert := load(Constants.TRUSTED_CHAIN_PATH)
+		#var tlsOptions = TLSOptions.server(priv, cert)
+		#error = peer.create_server(PORT, "*", tlsOptions)
+	#else:
+	error = peer.create_server(PORT, Constants.SERVER_IP)
+	print("Created server on: " + Constants.SERVER_IP)
+	print(error)
+	#if error:
+		#return error
+	multiplayer.multiplayer_peer = peer
