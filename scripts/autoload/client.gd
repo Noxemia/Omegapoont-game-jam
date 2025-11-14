@@ -2,16 +2,13 @@ extends Node
 const DEFAULT_SERVER_IP = Constants.SERVER_IP
 const PORT = Constants.PORT
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var argsSystem = OS.get_cmdline_args()
-	print(argsSystem[2])
 	var isClient = argsSystem[2] == "isClient"
 	if (!isClient):
 		return
 	join_game("")
-
 
 func join_game(address = ""):
 	await get_tree().create_timer(2.0).timeout
@@ -28,7 +25,10 @@ func join_game(address = ""):
 	else:
 		error = peer.create_client("ws://" + address + ":" + str(PORT))
 		print("Created client on:" + address)
-		print(error)
 	if error:
 		return error
 	multiplayer.multiplayer_peer = peer
+
+@rpc("any_peer", "call_local", "reliable")
+func test_message():
+	print("Message Recieved")

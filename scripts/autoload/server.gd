@@ -5,7 +5,6 @@ const PORT = Constants.PORT
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var argsSystem = OS.get_cmdline_args()
-	print(argsSystem[2])
 	var isServer = argsSystem[2] == "isServer"
 	if (!isServer):
 		return
@@ -15,10 +14,14 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(_on_connected_fail)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 	_create_server()
+	await get_tree().create_timer(5.0).timeout
+	test_message.rpc()
 
 
 func _on_player_connected(id):
 	print("player connected with id "+str(id)+" to "+str(multiplayer.get_unique_id()))
+	#await get_tree().create_timer(5.0).timeout
+	#test_message.rpc_id(id)
 
 func _on_player_disconnected():
 	print("player disconnect")
@@ -28,8 +31,6 @@ func _on_connected_ok():
 	
 func _on_connected_fail():
 	print("connected fail")
-	var last_error = multiplayer.is_server()
-	print("Peer last error:", last_error)
 	multiplayer.multiplayer_peer = null
 	
 func _on_server_disconnected():
@@ -46,7 +47,11 @@ func _create_server():
 	#else:
 	error = peer.create_server(PORT, Constants.SERVER_IP)
 	print("Created server on: " + Constants.SERVER_IP)
-	print(error)
 	#if error:
 		#return error
 	multiplayer.multiplayer_peer = peer
+
+@rpc("any_peer", "call_remote", "reliable")
+func test_message():
+	print("Message Recieved")
+	
