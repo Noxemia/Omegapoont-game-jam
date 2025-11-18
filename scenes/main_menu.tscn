@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://hqlqqooouj5"]
+
+[ext_resource type="Script" uid="uid://bxb8m8imuel43" path="res://scripts/main_menu.gd" id="1_l6cm7"]
+
+[node name="main_menu" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 216.0
+offset_top = 108.0
+offset_right = -316.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l6cm7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Main Menu"
+horizontal_alignment = 1
+
+[node name="Button_Play" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Play Game"
+
+[node name="Button_Server" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Start Server"
+
+[connection signal="pressed" from="VBoxContainer/Button_Play" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button_Server" to="." method="_on_button_server_pressed"]
